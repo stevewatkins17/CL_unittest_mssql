@@ -1,0 +1,21 @@
+{
+     "unit_test_batch_name" : "test unittest_mssql"
+    ,"unit_test_sql_file" : "unit test - test unittest_mssql.sql"
+    ,"sql_user_auth":{
+       "UID":"SA"
+      ,"PWD":"MyP@ssword1"
+     }
+    ,"dbs_list" : {
+       "localhost":"tempdb"
+     }
+    ,"dbs_query_instance" : {
+         "i": "" 
+        ,"db": "" 
+        ,"sql_file" : "db_catalog_instance_dbs.sql"
+        }
+    ,"dbs_query_tier" : {
+         "i": "CUST-CONFIGURATION-INFO-HNA" 
+        ,"db": "Configuration"
+        ,"sql_file" : "db_catalog_configuration_db.sql"
+        }     
+}
