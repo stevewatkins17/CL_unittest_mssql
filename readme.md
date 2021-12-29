@@ -5,6 +5,10 @@ unittest_mssql is a Python & TSQL unit testing tool.
 Python implements the programming framework to execute the test.
 TSQL implements the core test itself and returns Pass/Fail results.
 
+This is a forked, test version for public demo. It uses SQL auth to connect to a single local SQL Server instance (Docker linux container). 
+
+It's upstream parent was originally developed, and is currently used, in a Production Windows env using Active Directory auth to connect to hundreds of DBs across dozens of MSSQL instances. 
+
 # Getting started
 The user must have Python installed to implement (although it can be compiled to a Windows or linux .exe to avoid that).
 
@@ -34,18 +38,22 @@ WARNING - must use characters in the key-value that Python, the json parser and 
 	{
 		 "unit_test_batch_name" : "udf_GetAttachmentsList - XAI"
 		,"unit_test_sql_file" : "unit test - udf_GetAttachmentsList.sql"
+ 	    ,"sql_user_auth":{
+		    "UID":"SA"
+		   ,"PWD":"MyPassword"
+		 }		
 		,"dbs_list" : {
-		  "XBISQL842":"TEMP_SEASONS_DNA"
-		 ,"XAISQL841":"TEMP_ACCENTCARE_PHYSICIANS_QA"
-		 ,"":"an empty key voids dbs_list"
+		  "mymssqlinstance01":"DB01"
+		 ,"mymssqlinstance02":"DB02"
+		 ,"":"an empty key here voids dbs_list"
 		 }
 		,"dbs_query_instance" : {
-			 "i": "XAISQL841" 
+			 "i": "mymssqlinstance01" 
 			,"db": "master" 
 			,"sql_file" : "db_catalog_instance_dbs.sql"
 			}
 		,"dbs_query_tier" : {
-			 "i": "AGENCY-CONFIGURATION-INFO-LOU-HNA" 
+			 "i": "All_Env_Catalog" 
 			,"db": "Configuration"
 			,"sql_file" : "db_catalog_configuration_db.sql"
 			}     
@@ -58,6 +66,8 @@ What each line means:
 
 - "unit_test_sql_file" : the SQL read-only batch script filename that performs the test. 
 	o WARNING - do not put SSMS specific code/commands in the TSQL batch, like "GO" or ":connect XAISQL841"
+
+- "sql_user_auth" : SQL Server SQL user authentication for the pyodbc conn. string.
 
 - "dbs_list" : an explicit list of DBs to test against. When empty key exists ("":""), then entire list void. Can be empty strings (null).
 
@@ -78,7 +88,7 @@ Although this could change, currently the Python logic uses a "narrowest scope w
 
 # To run
 
-unittest_mssql is executed at the Windows CMD line:
+unittest_mssql is executed at CMD line:
 ```
    /unittest_mssql>python unittest_mssql.py
 ```
@@ -100,21 +110,21 @@ unittest_mssql.py outputs 2 files:
 			"null": 6
 		},
 		"results": {
-			"XBISQL842.TEMP_AAYCT_SPARSETEST_DNA": [
+			"XBISQL.TEMP_SPARSETEST_DNA": [
 				487,
 				487,
 				0,
 				0,
 				"Pass"
 			],
-			"XBISQL842.TEMP_ABSOLUTE_SPARSETEST_DNA": [
+			"XBISQL.TEMP_SPARSETEST_DNA2": [
 				921,
 				921,
 				0,
 				0,
 				"Pass"
 			],
-			"XBISQL842.TEMP_ADDUS_SPARSETEST_DNA": [
+			"XBISQL.TEMP_SPARSETEST_DNA3": [
 				946,
 				946,
 				0,
