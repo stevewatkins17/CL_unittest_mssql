@@ -57,7 +57,7 @@ def get_MSSQL_connection(mssql_instance ,mssql_DB ,sql_auth):
                 f"SERVER={mssql_instance},1433;"
                 f"DATABASE={mssql_DB};"
                 f"UID={UID};"
-                f"Pwd={PWD};"
+                f"PWD={PWD};"
                 "APP=MyApp;"
                 ,timeout=cn_timeout)
             cn.timeout = qry_timeout
